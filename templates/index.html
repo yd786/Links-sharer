@@ -1,0 +1,143 @@
+{% extends "_include.html" %}
+{% block title %}Home - Transfer Links{% endblock %}
+{% block container %}
+	<style>
+		html{
+			overflow: hidden;
+		}
+		body{
+			background: -webkit-linear-gradient(left, #DD2476, #FF512F);
+			background: -o-linear-gradient(left, #DD2476, #FF512F);
+			background: linear-gradient(to left, #DD2476, #FF512F);
+			height: 100vh;
+			overflow: hidden;
+			overflow-y: scroll;
+			scroll-behavior: smooth;
+		}
+		.column{
+			margin: 0px auto;
+		}
+		.area-1{
+			color: #fff;
+			border: 10px solid transparent;
+			border-bottom-width: 5px;
+		}
+		.area-2{
+			margin: 0px;
+			padding: 2.2rem;
+			padding-bottom: 40px;
+			background: white;
+			border: 10px solid orange;
+			border-image-source: #FF512F;
+			border-image-source: -webkit-linear-gradient(to left, #DD2476, #FF512F);
+			border-image-source: linear-gradient(to left, #DD2476, #FF512F);
+			border-image-slice: 1;
+			text-align: center;
+			box-shadow:2px 5px 10px rgba(0, 0, 0, 0.3) inset;
+			/*background: rgba(0,255,0,.7);*/
+		}
+		
+		.area-3 .field{
+			justify-content: center;
+		}
+		.area-3 p{
+			letter-spacing: 1px;
+			margin: 0px;
+		}
+		.area-3 input{
+			width: 120px;
+			letter-spacing: 5px;
+			font-family: monospace;
+			text-align: center;
+		}
+		.area-3{
+			text-align: center;
+			padding-top: 40px;
+			padding-bottom: 30px;
+			background: white;
+			border: 10px dashed blue;
+			border-image-source: #FF512F;
+			border-image-source: -webkit-linear-gradient(to left, #DD2476, #FF512F);
+			border-image-source: linear-gradient(to left, #DD2476, #FF512F);
+			border-image-slice: 1;
+			box-shadow:2px 5px 10px rgba(0, 0, 0, 0.3) inset;
+			margin-bottom: 0px;
+		}
+		.area-4{
+			border: 10px dashed blue;
+			border-image-source: #FF512F;
+			border-image-source: -webkit-linear-gradient(left, #DD2476, #FF512F);
+			border-image-source: -o-linear-gradient(left, #DD2476, #FF512F);
+			border-image-source: linear-gradient(to left, #DD2476, #FF512F);
+			border-image-slice: 1;
+			padding: 20px;
+			padding-left: 40px;
+			background: white;
+			box-shadow:2px 5px 10px rgba(0, 0, 0, 0.4) inset;
+		}
+		.divider{
+			display: -webkit-flex;
+			display: -moz-flex;
+			display: -ms-flex;
+			display: -o-flex;
+			display: flex;
+			justify-content: center;
+			margin: -2rem auto
+		}
+		.divider p{
+			box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+			font-family: monospace;
+			font-weight: bold;
+			font-size: 1.6rem;
+			padding: 6px 10px;
+			line-height: 2.4rem;
+			color: white;
+			border-radius: 50%;
+			background: -webkit-linear-gradient(to right, #DD2476, #FF512F);
+			background: linear-gradient(to right, #DD2476, #FF512F);
+		}
+		span:child{
+			color: #209cee;
+			text-decoration: underline;
+			font-style: italic;
+		}
+	</style>
+	<div class="columns">
+		<div class="column is-5 is-narrow-tablet">
+			<div class="area-1 is-size-4">Share <span class="l">Links</span>&nbsp; to any Device Easily</div>
+
+			<div class="area-2 bg">
+				<form action="/send" method="post">
+					<button class="button is-large is-success ">SHARE NOW</button>
+				</form>
+			</div>
+
+			<div class="divider">
+				<hr><p>OR</p><hr>
+			</div>
+
+			<div class="area-3">
+				<form action="/recieve" method="post">
+					<p class="is-size-5">Enter Code Below</p>
+					<div class="field has-addons">
+						<div class="control">
+							<input name="user_code" type="tel" class="input cs-input-box	" maxlength="6" >
+						</div>
+						<div class="control">
+							<button class="button is-info">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			<div class="area-4">
+				<ol>Instruction:
+					<li>To send <span class="l">Links</span> click SHARE NOW button. It will generate a 6-digit Code , which is displayed at top of the page</li>
+					<li>To recieve link from a Sender , enter The 6-digit Code Available at top of the Sender page </li>
+					<li>Any Number of Device can be connected as Long as you have the 6 digit code</li>
+				</ol>
+			</div>
+		
+		</div>
+	</div>
+	{% endblock %}

@@ -1,0 +1,179 @@
+{% extends "_include.html" %}
+{% block title %}All links Page - trasfer NOW{% endblock %}
+{% block container %}
+	<style>
+	.code-container{
+	border-left: 5px solid #ff2e00;
+	padding: 5px 10px;
+	letter-spacing: 5px;
+	font-weight: bold;
+	color: #fff;
+	font-family: monospace;
+	}
+	.panel>.panel-block{
+	border-bottom: 1px solid #ED3A54;
+	}
+	.code-text{
+	color: #FE5030;
+	background: #f6f5f5;
+	font-weight: bold;
+	padding: 5px 10px;
+	}
+	.panel-block{
+	border-left: 0px;
+	border-right: 0px;
+	}
+	.panel{
+	background: #fff;
+	border-radius: 1em;
+	}
+	body{
+	height: 100vh;
+	background: #FF512F;
+	background: -webkit-linear-gradient(to right, #DD2476, #FF512F);
+	background: linear-gradient(to right, #DD2476, #FF512F);
+	padding: 20px;
+	}
+	.panel-block:last-child{
+	border-bottom: 0px;
+	border-top: 3px solid #ED3A54;
+	padding: 15px;
+	text-align: center;
+	justify-content: flex-end;
+	}
+	.panel-heading{
+	border-top: 0px !important;
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 4px solid #ED3A54;
+	font-family: monospace;}
+	.panel-block{
+	display: flex;
+	justify-content: space-between;
+	align-content: center;
+	padding: 15px;
+	}
+	.lvl-l{
+	justify-content: flex-start;
+	}
+	.lvl-r{
+	justify-content: flex-end;
+	}
+	.info,.info>p{
+	background: #209CEE;
+	color: #fff;
+	}
+	</style>
+	<div class="columns">
+		<div class="column is-7" style="margin: auto">
+			<div class="level" style="margin-bottom: 20px !important">
+				<div class="level-item">
+					<p class="is-size-3 code-text" >your-Code</p>
+					<p class="is-size-2 code-container" >{{session["USER_ID"]}}</p>
+				</div>
+			</div>
+			<div class="panel">
+				<p class="panel-heading is-size-4 is-bold">
+					<b>All links</b>
+				</p>
+				{% for d in data %}
+				<div class="panel-block" >
+					<div class="lvl-l">
+						<div class="tags has-addons">
+							<a class="tag is-info is-large" href="{{d.href}}" target="_blank">{{d.title}}</a>
+							<a class="tag is-delete is-large" onclick="rmLink('{{d.title}}')"></a>
+						</div>
+					</div>
+					<div class="lvl-r">
+						<a class="button is-success is-outlined" onclick="edLink('{{d.title}}',this)">Edit</a>
+					</div>
+				</div>
+				{% endfor %}
+				<div class="panel-block" >
+					<a onclick="oclCreate()" class="button is-primary">ADD</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id='createModal' class="modal">
+		<div class="modal-background"></div>
+		<div class="modal-card">
+			<header class="modal-card-head info">
+				<p class="modal-card-title">Add Link</p>
+				<button class="delete is-large" aria-label="close" onclick="oclCreate(this)"></button>
+			</header>
+			<form action="/add_link/">
+				<section class="modal-card-body">
+					<div class="field">
+						<div class="control">
+							<input class="input" type="text" name='ft_title' placeholder="Name"></input>
+						</div>
+					</div>
+					<div class="field">
+						<div class="control">
+							<textarea class="textarea" name='ft_href' placeholder="Paste link here"></textarea>
+						</div>
+					</div>
+				</section>
+				<footer class="modal-card-foot lvl-r">
+					<button class="button is-info is-medium " type="submit">Add</button>
+				</footer>
+			</form>
+		</div>
+	</div>
+	<div id='editModal' class="modal">
+		<div class="modal-background"></div>
+		<div class="modal-card ">
+			<header class="modal-card-head info">
+				<p class="modal-card-title">Edit Link</p>
+				<button class="delete" aria-label="close" onclick="clEdit(this)">
+				</button>
+			</header>
+			<form action="/update_link/">
+				<section class="modal-card-body">
+					<div class="field">
+						<div class="control">
+							<input class="input" type="text" id="updatedTitle" 	name='updatedTitle' placeholder="Name"></input>
+						</div>
+					</div>
+					<div class="field">
+						<div class="control">
+							<textarea class="textarea" id="updatedHref" name='updatedHref' placeholder="Paste link here"></textarea>
+						</div>
+					</div>
+				</section>
+				<input type="text" hidden="true" id="_key" name="key">
+				<footer class="modal-card-foot">
+					<button class="button is-success" type="submit">Update</button>
+				</footer>
+			</form>
+		</div>
+	</div>
+	<script src="./static/jquery.min.js"></script>
+	<script>
+	function oclCreate(){
+	$('#createModal').toggleClass('is-active')
+	}
+	function clEdit(){
+	$('#editModal').toggleClass("is-active")
+	}
+	function rmLink(t){
+	fetch('/delete_link/', {
+	method: 'post',
+	headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+	body: "title="+t})
+	.then(() => location.reload())
+	}
+	function edLink(k,t){
+	let node = t.parentNode.previousElementSibling.children[0].children[0];
+	console.log()
+	title = node.text
+	href = node.attributes["href"].value
+	$('#updatedTitle').val(title)
+	$('#updatedHref').val(href)
+	$('#_key').val(k)
+	$('#editModal').toggleClass("is-active")
+	}
+	</script>
+{% endblock %}
+<!-- http://tools.buzzstream.com/metaDataService?url=http -->
